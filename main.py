@@ -21,8 +21,6 @@ app.add_middleware(
 DATABASE_URL = os.getenv("postgresql://cards_ch12_user:f4zBEDf1muMSGWuu4P5QbbYJ9J3kG6OC@dpg-d7ekat8sfn5c738e16mg-a"
                          ".frankfurt-postgres.render.com/cards_ch12")  # from Render
 
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
