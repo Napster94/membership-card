@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Card Reservation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    h1,h2 {
+      color: #DAA425;
+      font-family: 'Playfair Display', serif;
+      margin-top: 20px;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    p.subtitle {
+      margin: 5px 0 25px 0;
+      color: #ccc;
+      text-align: center;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* SUITS */
+    .suits {
+      margin-top: 40px;
+      font-size: 60px;
+      letter-spacing: 5px;
+      font-family: "Segoe UI Symbol", "Arial Unicode MS", sans-serif;
+    }
+
+    .heart, .diamond { color: red; }
+    .spade, .club { color: darkgrey; }
+
+    /* GOLD DIVIDER LINE */
+    .divider {
+      width: 100px;
+      height: 2px;
+      margin: 10px 0 10px 0;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 215, 0, 0.8),
+        #DAA425,
+        rgba(255, 215, 0, 0.8),
+        transparent
+      );
+      box-shadow: 0 0 10px #DAA425;
+    }
+
+    /* CARD (NO FLIP) */
+    .card {
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      width: 340px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow:
+        0 0 2px #DAA425,
+        0 0 10px #DAA425,
+        0 0 20px rgba(255, 215, 0, 0.5);
+      transform: scale(1.03);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: white;
+      outline: none;
+    }
+
+    /* INPUT GLOW */
+    input:focus {
+      box-shadow: 0 0 2px #DAA425;
+    }
+
+    /* BUTTON */
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      background: #DAA425;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    label{
+      display: block;
+      text-align: left;
+      margin-top: 10px;
+      font-size: 12px;
+      letter-spacing: 3px;
+      font-family: 'Poppins', sans-serif;
+      color: #DAA425;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #response {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- SUITS -->
+  <div class="suits">
+    <span class="heart">♥</span>
+    <span class="diamond">♦</span>
+    <span class="spade">♠</span>
+    <span class="club">♣</span>
+  </div>
+
+  <h1>Tarek El Finik Gang<br>Membership Card</h1>
+  <div class="divider"></div>
+  <p class="subtitle">Reserve your exclusive card number</p>
+
+  <!-- CARD -->
+  <div class="card">
+    <h2>Registration Card</h2>
+
+    <label>FULL NAME</label>
+    <input type="text" id="name">
+
+    <label>EMAIL</label>
+    <input type="email" id="email">
+
+    <label>CARD NUMBER</label>
+    <input type="number" id="number">
+
+    <button onclick="submitForm()">Register Card</button>
+
+    <p id="response"></p>
+  </div>
+
+  <script>
+    async function submitForm() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const number = parseInt(document.getElementById("number").value);
+
+      const res = await fetch("http://127.0.0.1:8000/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, number })
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        document.getElementById("response").innerText = data.message;
+      } else {
+        document.getElementById("response").innerText = data.detail;
+      }
+    }
+  </script>
+
+</body>
+</html>
