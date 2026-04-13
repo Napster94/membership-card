@@ -18,7 +18,8 @@ app.add_middleware(
 )
 
 # Database setup
-DATABASE_URL = os.environ.get("postgresql://cards_ch12_user:f4zBEDf1muMSGWuu4P5QbbYJ9J3kG6OC@dpg-d7ekat8sfn5c738e16mg-a.frankfurt-postgres.render.com/cards_ch12")  # 👈 use this (stronger than getenv)
+DATABASE_URL = "postgresql://cards_ch12_user:f4zBEDf1muMSGWuu4P5QbbYJ9J3kG6OC@dpg-d7ekat8sfn5c738e16mg-a.frankfurt-postgres.render.com/cards_ch12"
+
 
 print("DEBUG DATABASE_URL:", DATABASE_URL)
 
