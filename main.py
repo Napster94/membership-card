@@ -18,8 +18,9 @@ app.add_middleware(
 )
 
 # Database setup
-DATABASE_URL = os.getenv("postgresql://cards_ch12_user:f4zBEDf1muMSGWuu4P5QbbYJ9J3kG6OC@dpg-d7ekat8sfn5c738e16mg-a"
-                         ".frankfurt-postgres.render.com/cards_ch12")  # from Render
+DATABASE_URL = os.environ.get("postgresql://cards_ch12_user:f4zBEDf1muMSGWuu4P5QbbYJ9J3kG6OC@dpg-d7ekat8sfn5c738e16mg-a.frankfurt-postgres.render.com/cards_ch12")  # 👈 use this (stronger than getenv)
+
+print("DEBUG DATABASE_URL:", DATABASE_URL)
 
 
 engine = create_engine(DATABASE_URL)
